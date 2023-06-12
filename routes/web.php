@@ -25,5 +25,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/division', [App\Http\Controllers\HomeController::class, 'show'])->name('division');
-Route::get('/division', [App\Http\Controllers\HomeController::class, 'show'])->name('division');
+// Route::get('/division', [App\Http\Controllers\DivisionController::class, 'index']);
+
+Route::resource('division', 'App\Http\Controllers\DivisionController');

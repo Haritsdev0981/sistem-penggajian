@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('division', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_user');
+            // $table->unsignedBigInteger('id_user');
             $table->string('name_division');
             $table->integer('gaji_pokok');
             $table->timestamps();
 
-            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
