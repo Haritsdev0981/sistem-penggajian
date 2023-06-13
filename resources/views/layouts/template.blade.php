@@ -102,16 +102,18 @@
                 <div>Employer</div>
               </a>
               <ul class="menu-sub">
+              <li class="menu-item">
+                  <a href="/employee-list" class="menu-link">
+                    <div>Employee List</div>
+                  </a>
+                </li>
+
                 <li class="menu-item">
                   <a href="/division" class="menu-link">
                     <div>Division</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div>Employee List</div>
-                  </a>
-                </li>
+                
                 <li class="menu-item">
                   <a href="pages-account-settings-connections.html" class="menu-link">
                     <div>Subsidy</div>
@@ -122,7 +124,7 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div data-i18n="Authentications">Activity</div>
+                <div data-i18n="Authentications">More</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
