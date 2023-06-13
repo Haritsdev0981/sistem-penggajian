@@ -26,7 +26,10 @@
 		        	</small>
 		        @enderror
 			</div>
-			<button type="submit" class="btn btn-primary mt-4">Simpan</button>
+            <div class="mt-4">
+			<button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="/division" class="btn btn-danger">Back</a>
+            </div>
 	 	</form>
 	</div>
 </section>
