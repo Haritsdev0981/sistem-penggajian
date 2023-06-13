@@ -86,10 +86,10 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item ">
               <a href="/home" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div>Dashboard</div>
               </a>
             </li>
 
@@ -99,22 +99,22 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">Employer</div>
+                <div>Employer</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="/division" class="menu-link">
-                    <div data-i18n="Account">Division</div>
+                    <div>Division</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">Employee List</div>
+                    <div>Employee List</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-connections.html" class="menu-link">
-                    <div data-i18n="Connections">Subsidy</div>
+                    <div>Subsidy</div>
                   </a>
                 </li>
               </ul>

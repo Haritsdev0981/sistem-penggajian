@@ -84,7 +84,8 @@ class DivisionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $division = Division::find($id);
+        return view('division.edit', compact('division'));
     }
 
     /**
@@ -96,7 +97,10 @@ class DivisionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $division = Division::findOrFail($id);
+        $data = $request->all();
+        $division->update($data);
+        return redirect('/division');
     }
 
     /**
@@ -107,6 +111,8 @@ class DivisionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Division::findOrFail($id);
+        $data->delete();
+        return back();
     }
 }
