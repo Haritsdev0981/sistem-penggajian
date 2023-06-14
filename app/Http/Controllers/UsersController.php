@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class EmployeeListController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,8 @@ class EmployeeListController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::paginate(5);
+        return view('employee.index', compact('users'));
     }
 
     /**
@@ -23,7 +24,7 @@ class EmployeeListController extends Controller
      */
     public function create()
     {
-        //
+        return view('employee.create');
     }
 
     /**
