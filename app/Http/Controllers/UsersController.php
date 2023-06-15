@@ -6,8 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Division;
 
+use Hash;
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $user = User::all();
+        $user = User::where('level', "!=", 'admin')->get()->all();
         $division = Division::all();
         return view('employee.index', compact('user', 'division'));
 
@@ -39,8 +45,14 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $input = $request->all();
-        User::create($input);
+         $data = [
+            'name' => $request['name'],
+            'no_hp' => $request['no_hp'],
+            'email' => $request['email'],
+            'id_division' => $request['id_division'],
+            'password' => Hash::make($request['password']),
+         ];
+        User::create($data);
         return back();
     }
 
@@ -77,7 +89,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
          // Cari pengguna berdasarkan ID
-        $user = User::findOrFail($id);
+        $user = User::find($id);
 
         // Reset password menjadi "password123" (Anda dapat mengubahnya sesuai kebutuhan)
         $user->password = Hash::make('password123');

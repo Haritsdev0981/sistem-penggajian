@@ -108,11 +108,13 @@
                   </a>
                 </li>
 
+                @if(auth()->user()->level == "admin")
                 <li class="menu-item">
                   <a href="/division" class="menu-link">
                     <div>Division</div>
                   </a>
                 </li>
+                @endif
                 
                 <li class="menu-item">
                   <a href="pages-account-settings-connections.html" class="menu-link">
@@ -201,8 +203,10 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
+                            @if(Auth()->user()->level != 'admin')
+                            <small class="text-muted">{{ Auth::user()->division->name_division }}</small>
+                            @endif
                           </div>
                         </div>
                       </a>
@@ -235,10 +239,15 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
-                        <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">Log Out</span>
-                      </a>
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
                     </li>
                   </ul>
                 </li>

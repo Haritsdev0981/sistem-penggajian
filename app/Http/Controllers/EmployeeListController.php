@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+
 
 class EmployeeListController extends Controller
 {
@@ -45,7 +47,8 @@ class EmployeeListController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('employee.detail', compact('user'));
     }
 
     /**

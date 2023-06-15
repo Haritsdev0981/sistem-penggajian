@@ -3,8 +3,10 @@
 <section class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-2">
         <h1>Data Employee</h1>
+        @if(auth()->user()->level == "admin")
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Create
             Employee</button>
+            @endif
 
         <!-- Start add Modal -->
 
@@ -70,7 +72,9 @@
                     <th>No</th>
                     <th>Name Employee</th>
                     <th>Division</th>
+                    @if(auth()->user()->level == "admin")
                     <th>Choose</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -83,13 +87,16 @@
                     <th>{{ $loop->iteration }}</th>
                     <td>{{ $row->name }}</td>
                     <td>{{ $row->division->name_division }}</td>
+                    @if(auth()->user()->level == "admin")
                     <td>
                         <form action="{{ route('employee-list.update', $row->id) }}" method="post">
                             @csrf
-                            <a href="#" class="btn btn-primary">Detail</a>
+                            {{ method_field('PUT') }}
+                            <a href="{{ route('employee.show', $row->id) }}" class="btn btn-primary">Detail</a>
                             <button type="submit" class="btn bg-warning text-white">Reset Password</button>
                         </form>
                     </td>
+                    @endif
                 </tr>
                     @endforeach
 
