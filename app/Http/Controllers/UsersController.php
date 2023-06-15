@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Division;
 
 class UsersController extends Controller
 {
@@ -13,8 +15,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(5);
-        return view('employee.index', compact('users'));
+        $user = User::all();
+        $division = Division::all();
+        return view('employee.index', compact('user', 'division'));
+
     }
 
     /**
@@ -24,7 +28,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('employee.create');
+        // return view('employee.create');
     }
 
     /**
@@ -35,7 +39,9 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        User::create($input);
+        return back();
     }
 
     /**
@@ -46,7 +52,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = EmployeList::all();
+        return view('employee.index', compact('employee'));
     }
 
     /**
@@ -69,7 +76,15 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         // Cari pengguna berdasarkan ID
+        $user = User::findOrFail($id);
+
+        // Reset password menjadi "password123" (Anda dapat mengubahnya sesuai kebutuhan)
+        $user->password = Hash::make('password123');
+        $user->save();
+
+    // Redirect atau tampilkan pesan sukses
+    return redirect()->back()->with('success', 'Password reset successfully.');
     }
 
     /**

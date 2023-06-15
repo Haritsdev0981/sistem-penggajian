@@ -15,34 +15,35 @@
                         <h1 class="modal-title fs-5" id="exampleModalLabel">Create Employee</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form action="" method="POST">
+                    <form action="{{ route('employee-list.store') }}" method="POST">
+                        @csrf
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" name="name" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Division</label>
-                            <select name="" id="" class="form-select">
-                                <option selected>Open this select division</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <select name="id_division" class="form-select">
+                                <option selected>--Open this select division--</option>
+                                @foreach($division as $row)
+                                <option value="{{ $row->id }}">{{$row->name_division}}</option>
+                                @endforeach
                             </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email address</label>
-                                <input type="email" class="form-control" aria-describedby="emailHelp">
+                                <input type="email" class="form-control" aria-describedby="emailHelp" name="email" required>
                                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Phone number</label>
-                                <input type="number" class="form-control">
+                                <input type="number" class="form-control" name="no_hp" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Password</label>
-                                <input type="password" class="form-control">
+                                <input type="password" class="form-control" name="password" required>
                             </div>
 
                         </div>
@@ -69,7 +70,6 @@
                     <th>No</th>
                     <th>Name Employee</th>
                     <th>Division</th>
-                    <th>Status</th>
                     <th>Choose</th>
                 </tr>
             </thead>
@@ -78,21 +78,20 @@
                     $no = 1; // Inisialisasi variabel $no dengan nilai 1
                     @endphp -->
 
+                    @foreach($user as $row)
                 <tr>
-                    <th>1</th>
-                    <td>Harits</td>
-                    <td>FrontEnd Developer</td>
-                    <td>Karyawan Tetap</td>
+                    <th>{{ $loop->iteration }}</th>
+                    <td>{{ $row->name }}</td>
+                    <td>{{ $row->division->name_division }}</td>
                     <td>
-                        <form action="#" method="post"
-                            onsubmit="return confirm('Apakah Anda akan menghapus data ini?')">
+                        <form action="{{ route('employee-list.update', $row->id) }}" method="post">
                             @csrf
-                            {{method_field('DELETE')}}
                             <a href="#" class="btn btn-primary">Detail</a>
                             <button type="submit" class="btn bg-warning text-white">Reset Password</button>
                         </form>
                     </td>
                 </tr>
+                    @endforeach
 
             </tbody>
         </table>

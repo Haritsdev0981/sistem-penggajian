@@ -27,5 +27,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::get('/division', [App\Http\Controllers\DivisionController::class, 'index']);
 
+
 Route::resource('division', 'App\Http\Controllers\DivisionController');
 Route::resource('employee-list', 'App\Http\Controllers\UsersController');
