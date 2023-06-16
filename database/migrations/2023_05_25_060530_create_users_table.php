@@ -15,17 +15,16 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_division')->nullable();
             $table->string('name');
             $table->bigInteger('no_hp');
             $table->string('email')->unique();
+            $table->string('status');
             $table->timestamp('email_verified_at')->nullable();
             $table->enum('level',['admin','employee','pic'])->default('pic');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
 
-            $table->foreign('id_division')->on('division')->references('id')->onDelete('cascade');
         });
     }
 

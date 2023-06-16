@@ -6,7 +6,7 @@
         @if(auth()->user()->level == "admin")
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Create
             Employee</button>
-            @endif
+        @endif
 
         <!-- Start add Modal -->
 
@@ -25,17 +25,30 @@
                                 <input type="text" class="form-control" name="name" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Division</label>
-                            <select name="id_division" class="form-select">
-                                <option selected>--Open this select division--</option>
-                                @foreach($division as $row)
-                                <option value="{{ $row->id }}">{{$row->name_division}}</option>
-                                @endforeach
-                            </select>
+                                <label class="form-label">Level</label>
+                                <select name="level" class="form-select">
+                                    <option selected>--Open this select level--</option>
+                                    <option value="employee">Employee</option>
+                                    <option value="pic">Pic</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select name="status" class="form-select">
+                                    <option selected>--Open this select status--</option>
+                                    <option>Fulltime</option>
+                                    <option>Contract</option>
+                                    <option>Internship</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Email address</label>
-                                <input type="email" class="form-control" aria-describedby="emailHelp" name="email" required>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror" aria-describedby="emailHelp" name="email" value="{{ old('email') }}" autocomplete="email" autofocus required>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
                                 </div>
                             </div>
@@ -71,7 +84,8 @@
                 <tr>
                     <th>No</th>
                     <th>Name Employee</th>
-                    <th>Division</th>
+                    <th>Level</th>
+                    <th>Status</th>
                     @if(auth()->user()->level == "admin")
                     <th>Choose</th>
                     @endif
@@ -82,23 +96,36 @@
                     $no = 1; // Inisialisasi variabel $no dengan nilai 1
                     @endphp -->
 
-                    @foreach($user as $row)
+                @foreach($user as $row)
                 <tr>
                     <th>{{ $loop->iteration }}</th>
                     <td>{{ $row->name }}</td>
-                    <td>{{ $row->division->name_division }}</td>
+                    <td>{{ $row->level }}</td>
+                    <td>
+                        @if($row->status == 'Fulltime')
+                        <span class="bg-warning py-1 px-2 rounded-3 text-white"
+                            style="font-size: 14px;">{{ $row->status }}</span>
+                        @elseif($row->status == 'Contract')
+                        <span class="bg-primary py-1 px-2 rounded-3 text-white"
+                            style="font-size: 14px;">{{ $row->status }}</span>
+                        @elseif($row->status == 'Internship')
+                        <span class="bg-secondary py-1 px-2 rounded-3 text-white"
+                            style="font-size: 14px;">{{ $row->status }}</span>
+                        @endif
+                    </td>
                     @if(auth()->user()->level == "admin")
                     <td>
                         <form action="{{ route('employee-list.update', $row->id) }}" method="post">
                             @csrf
                             {{ method_field('PUT') }}
-                            <a href="{{ route('employee.show', $row->id) }}" class="btn btn-primary">Detail</a>
-                            <button type="submit" class="btn bg-warning text-white">Reset Password</button>
+                            <a href="{{ route('employee.show', $row->id) }}"
+                                class="btn btn-primary py-1 px-2">Detail</a>
+                            <button type="submit" class="btn bg-warning text-white py-1 px-2">Reset Password</button>
                         </form>
                     </td>
                     @endif
                 </tr>
-                    @endforeach
+                @endforeach
 
             </tbody>
         </table>

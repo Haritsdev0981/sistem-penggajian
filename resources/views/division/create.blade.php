@@ -26,6 +26,15 @@
 		        	</small>
 		        @enderror
 			</div>
+			<div class="mt-3">
+                                <label class="form-label">Pic</label>
+                                <select name="id_user" class="form-select">
+                                    <option selected>--Open this select pic--</option>
+                                    @foreach($user as $row)
+                                    <option value="{{ $row->id }}">{{$row->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
             <div class="mt-4">
 			<button type="submit" class="btn btn-primary">Simpan</button>
             <a href="/division" class="btn btn-danger">Back</a>

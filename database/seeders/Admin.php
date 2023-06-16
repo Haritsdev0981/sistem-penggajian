@@ -19,6 +19,7 @@ class Admin extends Seeder
         $user->email = 'admin@gmail.com';
         $user->no_hp = '190905';
         $user->level = 'admin';
+        $user->status = 'admin';
         $user->password = bcrypt('password');
         $user->save();
         $this->command->info('admin datang');

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedBigInteger('id_division');
             $table->string('photo');
             $table->text('alamat');
-            $table->integer('no_hp');
             // $table->string('barcode');
             $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('id_division')->references('id')->on('division')->onDelete('cascade');

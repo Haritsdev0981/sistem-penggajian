@@ -22,8 +22,7 @@ class UsersController extends Controller
     public function index()
     {
         $user = User::where('level', "!=", 'admin')->get()->all();
-        $division = Division::all();
-        return view('employee.index', compact('user', 'division'));
+        return view('employee.index', compact('user'));
 
     }
 
@@ -43,13 +42,23 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, User $user)
     {
+        $this->validate(
+            $request,
+            [
+                'email' => 'required|email|unique:users,email' .$user->id
+            ],
+            [
+                'email.unique' => 'Email already used',
+            ]
+        );
          $data = [
             'name' => $request['name'],
             'no_hp' => $request['no_hp'],
             'email' => $request['email'],
-            'id_division' => $request['id_division'],
+            'status' => $request['status'],
+            'level' => $request['level'],
             'password' => Hash::make($request['password']),
          ];
         User::create($data);

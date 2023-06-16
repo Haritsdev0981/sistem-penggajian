@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Validator;
 use App\Models\Division;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DivisionController extends Controller
@@ -26,7 +27,9 @@ class DivisionController extends Controller
      */
     public function create()
     {
-        return view('division.create');
+        $devisi = Division::get('id_user');
+        $user = User::WhereNotIn('id', $devisi)->where('level', 'pic')->get()->all();
+        return view('division.create', compact('user'));
     }
 
     /**
@@ -37,9 +40,6 @@ class DivisionController extends Controller
      */
     public function store(Request $request)
     {
-
-        $division = Division::all();
-
         $validator = Validator::make($request->all(), [
             'name_division' => 'required|unique:division|max:20',
             'gaji_pokok' => 'required|numeric',
@@ -56,13 +56,12 @@ class DivisionController extends Controller
         $data = [
             'name_division' => $request->name_division,
             'gaji_pokok' => $request->gaji_pokok,
+            'id_user' => $request->id_user,
         ];
 
-        $create = Division::create($data);
+        Division::create($data);
 
-        if($create) {
             return redirect()->route('division.index')->with(['success' => 'User Berhasil Dibuat!!']);
-        }
     }
 
     /**

@@ -15,6 +15,7 @@
                     <th>No</th>
                     <th>Name Division</th>
                     <th>Total Division Salary</th>
+                    <th>Pic</th>
                     <th>Choose</th>
                 </tr>
             </thead>
@@ -27,6 +28,7 @@
                         <th>{{ $loop->iteration }}</th>
                         <td>{{ $row->name_division }}</td>
                         <td>Rp. {{ $row->gaji_pokok }}</td>
+                        <td>{{ $row->user->name }}</td>
                         <td>
                             <form action="{{route('division.destroy', [$row->id])}}" method="post" onsubmit="return confirm('Apakah Anda akan menghapus data ini?')">
                                 @csrf
