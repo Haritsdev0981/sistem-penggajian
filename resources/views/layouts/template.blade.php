@@ -204,9 +204,7 @@
                           </div>
                           <div class="flex-grow-1">
                             <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                            @if(Auth()->user()->level != 'admin')
-                            <small class="text-muted">{{ Auth::user()->division->name_division }}</small>
-                            @endif
+                            <small class="text-muted">{{ Auth::user()->level }}</small>                
                           </div>
                         </div>
                       </a>

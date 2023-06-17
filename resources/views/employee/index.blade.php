@@ -2,7 +2,11 @@
 @section('content')
 <section class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-2">
+        @if(auth()->user()->level != "admin")
         <h1>Data Employee</h1>
+        @elseif(auth()->user()->level == "admin")
+        <h1>Data User</h1>
+        @endif
         @if(auth()->user()->level == "admin")
         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Create
             Employee</button>
@@ -97,6 +101,7 @@
                     @endphp -->
 
                 @foreach($user as $row)
+                @if(auth()->user()->level == 'admin' || (auth()->user()->level == 'pic' && $row->level == 'pic') || (auth()->user()->level == 'employee' && $row->level == 'employee'))
                 <tr>
                     <th>{{ $loop->iteration }}</th>
                     <td>{{ $row->name }}</td>
@@ -125,6 +130,7 @@
                     </td>
                     @endif
                 </tr>
+                @endif
                 @endforeach
 
             </tbody>
