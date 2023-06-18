@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Division;
 
 
 class EmployeeListController extends Controller
@@ -48,7 +49,8 @@ class EmployeeListController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('employee.detail', compact('user'));
+        $divisi = Division::where("id_user", $id)->get()->all();
+        return view('employee.detail', compact('user', 'divisi'));
     }
 
     /**
