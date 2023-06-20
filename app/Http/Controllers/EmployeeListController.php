@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Division;
+use App\Models\EmployeeList;
 
 
 class EmployeeListController extends Controller
@@ -61,7 +62,8 @@ class EmployeeListController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('employee.edit', compact('user'));
     }
 
     /**
@@ -73,7 +75,28 @@ class EmployeeListController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+        $datauser = [
+            'name' => $data['name'],
+            'no_hp' => $data['no_hp'],
+            'email' => $data['email'],
+            'status' => $data['status'],
+            'level' => $data['level'],
+            'password' => $data['password']
+        ];
+
+        $dataemployee = [
+            'id_user' => $data['id_user'],
+            'id_division' => $data['id_division'],
+            'photo' => $data['photo'],
+            'alamat' => $data['alamat'],
+        ];
+
+        $validator = Validator::make($datauser, $dataemployee, [
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
+        ]);
+
+        
     }
 
     /**
