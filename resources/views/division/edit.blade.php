@@ -29,7 +29,7 @@
 			</div>
             <div class="mt-4">
                         <button class="btn btn-primary">Tambahkan</button>
-                            <a href="/division" class="btn btn-danger">Back</a>
+                            <a href="/division" class="btn btn-secondary">Back</a>
             </div>
 	 	</form>
 	</div>
