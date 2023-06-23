@@ -30,3 +30,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('employee', 'App\Http\Controllers\EmployeeListController');
 Route::resource('division', 'App\Http\Controllers\DivisionController');
 Route::resource('employee-list', 'App\Http\Controllers\UsersController');
+Route::Resource('user',  'App\Http\controllers\EmployeeListController');

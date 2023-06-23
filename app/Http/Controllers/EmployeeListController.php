@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Division;
 use App\Models\EmployeeList;
 
+use Validator;
 
 class EmployeeListController extends Controller
 {
@@ -51,7 +52,8 @@ class EmployeeListController extends Controller
     {
         $user = User::findOrFail($id);
         $divisi = Division::where("id_user", $id)->get()->all();
-        return view('employee.detail', compact('user', 'divisi'));
+        $employee = EmployeeList::where("id_user", $id)->get()->all();
+        return view('employee.detail', compact('user', 'divisi', 'employee'));
     }
 
     /**
@@ -63,7 +65,8 @@ class EmployeeListController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('employee.edit', compact('user'));
+        $divisi = Division::all();
+        return view('employee.edit', compact('user', 'divisi'));
     }
 
     /**
@@ -82,7 +85,6 @@ class EmployeeListController extends Controller
             'email' => $data['email'],
             'status' => $data['status'],
             'level' => $data['level'],
-            'password' => $data['password']
         ];
 
         $dataemployee = [
@@ -96,6 +98,19 @@ class EmployeeListController extends Controller
             'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048'
         ]);
 
+        if($request->hasFile('photo'))
+        {
+            $destination_path = 'public/img/profile'; //path tempat penyimpanan (storage/public/images/profile)
+            $image = $request -> file('photo'); //mengambil request column photo
+            $image_name = $image->getClientOriginalName(); //memberikan nama gambar yang akan disimpan di foto
+            $path = $request->file('photo')->storeAs($destination_path, $image_name); //mengirimkan foto ke folder store
+            $dataBio['photo'] = $image_name; //mengirimkan ke database
+        }
+
+        User::find($id)->update($datauser);
+        EmployeeList::create($dataemployee);
+        
+        return redirect('/employee-list');
         
     }
 
